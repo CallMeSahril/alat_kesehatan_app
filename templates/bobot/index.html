@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Pairwise Comparison Kriteria (AHP)</h2>
+
+  <form method="POST">
+    <table class="table-auto border w-full mb-6">
+      <thead>
+        <tr>
+          <th class="border p-2 bg-gray-100">Kriteria</th>
+          {% for k in kriteria_list %}
+          <th class="border p-2 bg-gray-100 text-sm">{{ k.nama_kriteria }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in range(kriteria_list|length) %}
+        <tr>
+          <td class="border p-2 bg-gray-100">{{ kriteria_list[i].nama_kriteria }}</td>
+          {% for j in range(kriteria_list|length) %}
+          <td class="border p-2 text-center">
+            {% if i <= j %}
+            <input type="number" step="0.01" name="nilai_{{ i }}_{{ j }}" class="w-20 text-center border rounded" required
+              value="{% if i == j %}1{% else %}1{% endif %}">
+            {% else %}
+            <span>-</span>
+            {% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan Matriks</button>
+  </form>
+
+  <h3 class="text-lg font-semibold mt-6 mb-2">Matriks Tersimpan</h3>
+  <table class="table-auto border w-full">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="border p-2">Kriteria 1</th>
+        <th class="border p-2">Kriteria 2</th>
+        <th class="border p-2">Nilai</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in matriks %}
+      <tr>
+        <td class="border p-2">{{ m.nama_kriteria_1 }}</td>
+        <td class="border p-2">{{ m.nama_kriteria_2 }}</td>
+        <td class="border p-2 text-center">{{ m.nilai_perbandingan }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

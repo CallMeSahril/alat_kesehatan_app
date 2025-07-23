@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Data Alat Kesehatan</h1>
+<a href="/data-alat/tambah" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4 inline-block">Tambah
+    Data Alat</a>
+
+<div class="overflow-auto">
+    <table class="min-w-full bg-white border border-gray-300 shadow text-sm">
+        <thead>
+            <tr class="bg-gray-100 text-left whitespace-nowrap">
+                <th class="p-2 border">No</th>
+                <th class="p-2 border">Customer</th>
+                <th class="p-2 border">Alat</th>
+                <th class="p-2 border">Merk</th>
+                <th class="p-2 border">Tahun</th>
+                <th class="p-2 border">Garansi
+                    (th)</th>
+                <th class="p-2 border">Tgl Instalasi</th>
+                <th class="p-2 border">Jumlah
+                    Maintenance</th>
+                {% for i in range(1, 10 + 1) %}
+                <th class="p-2 border">M{{ i }}</th>
+                {% endfor %}
+                <th class="p-2 border">Laporan Kondisi Alat</th>
+                <th class="p-2 border">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in data_alat %}
+            <tr class="hover:bg-gray-50">
+                <td class="p-2 border">{{ loop.index }}</td>
+                <td class="p-2 border">{{ d.nama_customer }}</td>
+                <td class="p-2 border">{{ d.nama_alat }}</td>
+                <td class="p-2 border">{{ d.merk }}</td>
+                <td class="p-2 border">{{ d.tahun_produksi }}</td>
+                <td class="p-2 border">{{ d.garansi_tahun }} th</td>
+                <td class="p-2 border">{{ d.tgl_instalasi }}</td>
+                <td class="p-2 border text-center">{{ d.jumlah_maintenance }}</td>
+                {% for i in range(1, 11) %}
+                <td class="p-2 border">{{ d['m' ~ i] }}</td>
+                {% endfor %}
+                <td class="p-2 border">{{ d.nama_kondisi }}</td>
+                <td class="p-2 border space-x-2">
+                    <a href="/data-alat/edit/{{ d.id_data }}" class="text-blue-600 hover:underline">Edit</a>
+                    <a href="/data-alat/hapus/{{ d.id_data }}" class="text-red-600 hover:underline"
+                        onclick="return confirm('Hapus data ini?')">Hapus</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

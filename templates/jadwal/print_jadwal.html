@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Print Jadwal dan Skor Alat</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        .signature-section {
+            margin-top: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            text-align: center;
+        }
+
+        .signature-box {
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Jadwal dan Skor Alat Kesehatan Tahun {{ tahun }}</h1>
+
+    {% for bulan in range(1, 13) %}
+    {% if data_per_bulan[bulan] %}
+    <h2>Bulan {{ bulan | bulan_nama }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Alat</th>
+                <th>Customer</th>
+                <th>Tgl Instalasi</th>
+                <th>Maintenance</th>
+                <th>Garansi (thn)</th>
+                <th>Kondisi Alat</th>
+                <th>Tahun</th>
+                <th>Skor Akhir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alat in data_per_bulan[bulan] %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td style="text-align:left">{{ alat.nama_alat }}</td>
+                <td style="text-align:left">{{ alat.nama_customer }}</td>
+                <td>{{ alat.tgl_instalasi }}</td>
+                <td>{{ alat.jadwal_ke }}</td>
+                <td>{{ alat.garansi_tahun }}</td>
+                <td style="text-align:left">{{ alat.nama_kondisi }}</td>
+                <td>{{ alat.jadwal_date.year }}</td>
+                <td style="text-align:right">{{ "%.4f"|format(alat.skor_akhir) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% endfor %}
+
+    <div class="signature-section">
+        <div class="signature-box">
+            <p>Jakarta, {{ current_date }}</p>
+            <p>Penanggung Jawab</p>
+            <br><br><br>
+            <p style="text-decoration: underline;">Nama</p>
+        </div>
+    </div>
+
+    <script>
+        window.print();
+    </script>
+
+</body>
+
+</html>

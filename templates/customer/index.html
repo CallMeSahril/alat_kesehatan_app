@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Data Customer</h1>
+<a href="/customer/tambah" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4 inline-block">Tambah
+    Customer</a>
+
+<table class="min-w-full bg-white border border-gray-300 shadow">
+    <thead>
+        <tr class="bg-gray-100 text-left">
+            <th class="p-3 border-b">ID</th>
+            <th class="p-3 border-b">Nama</th>
+            <th class="p-3 border-b">Alamat</th>
+            <th class="p-3 border-b">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in data_customer %}
+        <tr class="hover:bg-gray-50">
+            <td class="p-3 border-b">{{ c.id_customer }}</td>
+            <td class="p-3 border-b">{{ c.nama_customer }}</td>
+            <td class="p-3 border-b">{{ c.alamat }}</td>
+            <td class="p-3 border-b">
+                <a href="/customer/edit/{{ c.id_customer }}" class="text-blue-600 hover:underline">Edit</a> |
+                <a href="/customer/hapus/{{ c.id_customer }}" class="text-red-600 hover:underline"
+                    onclick="return confirm('Hapus?')">Hapus</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

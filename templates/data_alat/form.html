@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">{{ 'Edit' if data_alat else 'Tambah' }} Data Alat</h1>
+
+<form method="POST" class="bg-white p-6 rounded shadow max-w-3xl">
+    <div class="grid grid-cols-2 gap-4">
+        <!-- Dropdown Customer -->
+        <div>
+            <label class="block font-medium">Customer</label>
+            <select id="select-customer" name="id_customer" class="w-full border rounded p-2" required>
+                <option value="">Pilih Customer</option>
+                {% for c in customers %}
+                <option value="{{ c.id_customer }}" {% if data_alat and data_alat.id_customer==c.id_customer
+                    %}selected{% endif %}>
+                    {{ c.nama_customer }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Dropdown Alat -->
+        <div>
+            <label class="block font-medium">Nama Alat</label>
+            <select id="select-alat" name="id_alat" class="w-full border rounded p-2" required>
+                <option value="">Pilih Alat</option>
+                {% for a in alats %}
+                <option value="{{ a.id_alat }}" {% if data_alat and data_alat.id_alat==a.id_alat %}selected{% endif %}>
+                    {{ a.nama_alat }} - {{ a.merk }} ({{ a.tahun_produksi }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        <!-- Input Garansi -->
+        <div>
+            <label class="block font-medium">Garansi (tahun)</label>
+            <input type="number" name="garansi_tahun" required
+                value="{{ data_alat.garansi_tahun if data_alat else '' }}" class="w-full border rounded p-2">
+        </div>
+
+        <!-- Input Tanggal Instalasi -->
+        <div>
+            <label class="block font-medium">Tanggal Instalasi</label>
+            <input type="date" name="tgl_instalasi" required value="{{ data_alat.tgl_instalasi if data_alat else '' }}"
+                class="w-full border rounded p-2">
+        </div>
+
+        <!-- Dropdown Kondisi -->
+        <div>
+            <label class="block font-medium">Kondisi</label>
+            <select name="id_kondisi" class="w-full border rounded p-2" required>
+                <option value="">Pilih Kondisi</option>
+                {% for k in kondisi %}
+                <option value="{{ k.id_kondisi }}" {% if data_alat and data_alat.id_kondisi==k.id_kondisi %}selected{%
+                    endif %}>
+                    {{ k.nama_kondisi }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Tombol Simpan -->
+    <button type="submit" class="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Simpan</button>
+    <a href="/data-alat" class="ml-4 text-gray-600 hover:underline">Batal</a>
+</form>
+
+<!-- Tom Select Scripts -->
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script>
+    new TomSelect("#select-customer", {
+        create: false,
+        sortField: { field: "text", direction: "asc" },
+        placeholder: "Cari Customer..."
+    });
+
+    new TomSelect("#select-alat", {
+        create: false,
+        sortField: { field: "text", direction: "asc" },
+        placeholder: "Cari Nama Alat..."
+    });
+</script>
+{% endblock %}

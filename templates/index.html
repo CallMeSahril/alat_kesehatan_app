@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Data Alat Kesehatan</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <h1>Data Alat Kesehatan</h1>
+
+    <h2>Alat</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Merk</th>
+            <th>Tahun</th>
+        </tr>
+        {% for row in alat %}
+        <tr>
+            <td>{{ row.id_alat }}</td>
+            <td>{{ row.nama_alat }}</td>
+            <td>{{ row.merk }}</td>
+            <td>{{ row.tahun_produksi }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Customer</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+        </tr>
+        {% for row in customer %}
+        <tr>
+            <td>{{ row.id_customer }}</td>
+            <td>{{ row.nama_customer }}</td>
+            <td>{{ row.alamat }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Tabel lainnya bisa ditambahkan seperti di atas -->
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Daftar Kriteria</h2>
+  <a href="/kriteria/tambah" class="bg-blue-500 text-white px-4 py-2 rounded">+ Tambah Kriteria</a>
+  <table class="table-auto w-full mt-4 border">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="px-4 py-2 border">No</th>
+        <th class="px-4 py-2 border">Nama Kriteria</th>
+        <th class="px-4 py-2 border">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for k in data_kriteria %}
+      <tr class="border-b">
+        <td class="px-4 py-2 border">{{ loop.index }}</td>
+        <td class="px-4 py-2 border">{{ k.nama_kriteria }}</td>
+        <td class="px-4 py-2 border">
+          <a href="/kriteria/edit/{{ k.id_kriteria }}" class="text-blue-500 hover:underline">Edit</a> |
+          <a href="/kriteria/hapus/{{ k.id_kriteria }}" onclick="return confirm('Yakin hapus?')" class="text-red-500 hover:underline">Hapus</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Alat Kesehatan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <button class="md:hidden bg-gray-200 p-2 m-2 rounded" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <div id="sidebar" class="hidden md:block w-full md:w-64 bg-white shadow-md border-r border-gray-200 p-4">
+            <h2 class="text-lg font-semibold mb-2 text-blue-600">Master</h2>
+            <ul class="space-y-1 mb-4">
+                <li><a href="/alat" class="text-gray-700 hover:underline">Alat</a></li>
+                <li><a href="/customer" class="text-gray-700 hover:underline">Customer</a></li>
+                <li><a href="/data-alat" class="text-gray-700 hover:underline">Data Alat</a></li>
+                <li><a href="/kondisi" class="text-gray-700 hover:underline">Kondisi</a></li>
+                <li><a href="/tahun" class="text-gray-700 hover:underline">Tahun Produksi</a></li>
+            </ul>
+
+            <h2 class="text-lg font-semibold mb-2 text-green-600">AHP</h2>
+            <ul class="space-y-1">
+                <li><a href="/kriteria" class="text-gray-700 hover:underline">Kriteria</a></li>
+                <li><a href="/bobot" class="text-gray-700 hover:underline">Bobot</a></li>
+                <li><a href="/perhitungan-bobot" class="text-gray-700 hover:underline">Perhitungan Bobot Kriteria</a>
+                </li>
+                <li><a href="/bobot-alternatif" class="text-gray-700 hover:underline">Kondisi untuk Bobot Alternatif</a>
+                </li>
+                <li><a href="/perhitungan-alternatif" class="text-gray-700 hover:underline">Perhitungan Alternatif</a>
+                </li>
+            </ul>
+            <h2 class="text-lg font-semibold mb-2 text-purple-600">Jadwal</h2>
+            <ul class="space-y-1 mb-4">
+                <li><a href="/jadwal" class="text-gray-700 hover:underline">Jadwal Kegiatan</a></li>
+            </ul>
+        </div>
+
+
+        <!-- Content -->
+        <div class="flex-1 p-6">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>

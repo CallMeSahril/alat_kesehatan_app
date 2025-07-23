@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Jadwal dan Skor Alat Kesehatan Tahun {{ tahun }}</h1>
+<a href="{{ url_for('jadwal_bp.print_view', tahun=tahun) }}
+" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded">🖨 Cetak</a>
+
+<form class="mb-6 flex gap-4 items-center" method="GET">
+    <label for="tahun">Pilih Tahun:</label>
+    <select name="tahun" class="border px-2 py-1 rounded">
+        {% for y in years %}
+        <option value="{{ y }}" {% if y==tahun %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+    </select>
+    <button class="bg-blue-600 text-white px-4 py-2 rounded">Tampilkan</button>
+</form>
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-2">📅 Rekap Jumlah Jadwal per Tahun</h2>
+        <ul class="list-disc pl-4">
+            {% for th, jumlah in rekap_tahun.items() %}
+            <li><strong>{{ th }}:</strong> {{ jumlah }} jadwal</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="bg-white shadow p-4 rounded">
+        <h2 class="text-lg font-bold mb-2 text-green-700">📅 Rekap Jumlah Jadwal per Bulan ({{ tahun }})</h2>
+        <ul class="list-disc pl-4">
+            {% for bulan in range(1, 13) %}
+            <li><strong>{{ bulan | bulan_nama }}:</strong> {{ rekap_bulan[bulan] }} jadwal</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% for bulan in range(1, 13) %}
+<h2 class="text-xl font-bold mt-8 mb-2">Bulan {{ bulan | bulan_nama }}</h2>
+<div class="overflow-auto">
+    <table class="w-full table-auto bg-white shadow rounded">
+        <thead class="bg-gray-200">
+            <tr>
+                <th class="px-2 py-1 border">No</th>
+                <th class="px-2 py-1 border">Nama Alat</th>
+                <th class="px-2 py-1 border">Customer</th>
+                <th class="px-2 py-1 border">Tgl Instalasi</th>
+                <th class="px-2 py-1 border">Maintenance</th>
+                <th class="px-2 py-1 border">Garansi (thn)</th>
+                <th class="px-2 py-1 border">Kondisi Alat</th>
+                <th class="px-2 py-1 border">Tahun</th>
+                <th class="px-2 py-1 border">Skor Akhir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if data_per_bulan[bulan] %}
+            {% for alat in data_per_bulan[bulan] %}
+            <tr class="hover:bg-gray-100">
+                <td class="px-2 py-1 border text-center">{{ loop.index }}</td>
+                <td class="px-2 py-1 border">{{ alat.nama_alat }}</td>
+                <td class="px-2 py-1 border">{{ alat.nama_customer }}</td>
+                <td class="px-2 py-1 border">{{ alat.tgl_instalasi }}</td>
+                <td class="px-2 py-1 border">{{ alat.jadwal_ke }}</td>
+                <td class="px-2 py-1 border text-center">{{ alat.garansi_tahun }}</td>
+                <td class="px-2 py-1 border">{{ alat.nama_kondisi }}</td>
+                <td class="px-2 py-1 border text-center">{{ alat.jadwal_date.year }}</td>
+                <td class="px-2 py-1 border text-right">{{ "%.4f"|format(alat.skor_akhir) }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="9" class="px-2 py-2 text-center text-gray-500">Tidak ada data untuk bulan ini.</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+
+{% endblock %}
