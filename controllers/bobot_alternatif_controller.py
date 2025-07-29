@@ -48,7 +48,8 @@ def generate(id_data):
     nilai = []
     kondisi = data['nama_kondisi']
     customer = data['nama_customer']
-
+    print(
+        f"Processing ID {id_data} - Kondisi: {kondisi} - Customer: {customer}")
     for k in kriteria:
         nama_kriteria = k['nama_kriteria']
 
