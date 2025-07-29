@@ -72,6 +72,7 @@ def generate(id_data):
             nilai.append(max(1, 10 - umur))
 
         elif nama_kriteria == 'Jenis Customer':
+            print(f"[DEBUG] Customer lowercase: {customer_lower}")
             if 'rsud' in customer_lower or 'rsu' in customer_lower:
                 nilai.append(5)
             elif 'rs' in customer_lower:
