@@ -48,6 +48,8 @@ def generate(id_data):
     nilai = []
     kondisi = data['nama_kondisi']
     customer = data['nama_customer']
+    customer_lower = customer.lower()
+
     print(
         f"Processing ID {id_data} - Kondisi: {kondisi} - Customer: {customer}")
     for k in kriteria:
@@ -70,11 +72,11 @@ def generate(id_data):
             nilai.append(max(1, 10 - umur))
 
         elif nama_kriteria == 'Jenis Customer':
-            if 'RSUD' in customer or 'RSU' in customer:
+            if 'rsud' in customer_lower or 'rsu' in customer_lower:
                 nilai.append(5)
-            elif 'RS' in customer:
+            elif 'rs' in customer_lower:
                 nilai.append(4)
-            elif 'Klinik' in customer:
+            elif 'klinik' in customer_lower:
                 nilai.append(2)
             else:
                 nilai.append(1)
