@@ -71,6 +71,9 @@ def generate(id_data):
             nilai.append(max(1, 10 - umur))
 
         elif nama_kriteria == 'Jenis Customer':
+            print(
+                f"[DEBUG] Kriteria: {nama_kriteria}, Customer Raw: '{customer}'")
+
             if 'rsud' in customer_lower or 'rsu' in customer_lower:
                 nilai.append(5)
             elif 'rs' in customer_lower:
@@ -130,6 +133,9 @@ def generate_all():
                 nilai.append(max(1, 10 - umur))
 
             elif nama_kriteria == 'Jenis Customer':
+                print(
+                    f"[DEBUG] Kriteria: {nama_kriteria}, Customer Raw: '{customer}'")
+                customer_lower = customer.lower()
                 if 'rsud' in customer_lower or 'rsu' in customer_lower:
                     nilai.append(5)
                 elif 'rs' in customer_lower:
@@ -138,8 +144,6 @@ def generate_all():
                     nilai.append(2)
                 else:
                     nilai.append(1)
-            else:
-                nilai.append(1)
 
         print(f"nilai {nilai} - kriteria: {len(kriteria)}")
 
