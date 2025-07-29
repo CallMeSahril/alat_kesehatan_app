@@ -35,9 +35,10 @@ def index():
 @bobot_alternatif_bp.route('/generate/<int:id_data>')
 def generate(id_data):
     data = DataAlatModel.get_by_id(id_data)
+    print(f"Generating bobot untuk ID {id_data} - Data: {data}")
     if not data:
         return f"Data ID {id_data} tidak ditemukan", 404
-    
+
     kriteria = KriteriaModel.get_all()
     kondisi = data.get('nama_kondisi', '')
     customer = data.get('nama_customer', '')
