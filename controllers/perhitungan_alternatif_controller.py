@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template
 from models.perhitungan_alternatif_model import PerhitunganAlternatifModel
 
-perhitungan_alternatif_bp = Blueprint('perhitungan_alternatif_bp', __name__, url_prefix='/perhitungan-alternatif')
+perhitungan_alternatif_bp = Blueprint(
+    'perhitungan_alternatif_bp', __name__, url_prefix='/perhitungan-alternatif')
+
 
 @perhitungan_alternatif_bp.route('/')
 def index():
@@ -27,7 +29,8 @@ def index():
         hasil[id_alt]['skor_akhir'] += skor
 
     # Ubah ke list dan urutkan
-    ranking = sorted(hasil.values(), key=lambda x: x['skor_akhir'], reverse=True)
+    ranking = sorted(
+        hasil.values(), key=lambda x: x['skor_akhir'], reverse=True)
 
     # Simpan ke DB
     PerhitunganAlternatifModel.simpan_hasil(ranking)

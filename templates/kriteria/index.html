@@ -1,28 +1,40 @@
 {% extends 'layout.html' %}
+
 {% block content %}
-<div class="p-4">
-  <h2 class="text-xl font-bold mb-4">Daftar Kriteria</h2>
-  <a href="/kriteria/tambah" class="bg-blue-500 text-white px-4 py-2 rounded">+ Tambah Kriteria</a>
-  <table class="table-auto w-full mt-4 border">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="px-4 py-2 border">No</th>
-        <th class="px-4 py-2 border">Nama Kriteria</th>
-        <th class="px-4 py-2 border">Aksi</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for k in data_kriteria %}
-      <tr class="border-b">
-        <td class="px-4 py-2 border">{{ loop.index }}</td>
-        <td class="px-4 py-2 border">{{ k.nama_kriteria }}</td>
-        <td class="px-4 py-2 border">
-          <a href="/kriteria/edit/{{ k.id_kriteria }}" class="text-blue-500 hover:underline">Edit</a> |
-          <a href="/kriteria/hapus/{{ k.id_kriteria }}" onclick="return confirm('Yakin hapus?')" class="text-red-500 hover:underline">Hapus</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="max-w-5xl mx-auto">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Daftar Kriteria</h2>
+    <a href="/kriteria/tambah"
+      class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 shadow-sm transition">
+      ➕ Tambah Kriteria
+    </a>
+  </div>
+
+  <div class="overflow-x-auto bg-white shadow rounded">
+    <table class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead class="bg-gray-100 text-gray-700 font-semibold">
+        <tr>
+          <th class="px-4 py-3 text-left">No</th>
+          <th class="px-4 py-3 text-left">Nama Kriteria</th>
+          <th class="px-4 py-3 text-left">Aksi</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 text-gray-800">
+        {% for k in data_kriteria %}
+        <tr class="hover:bg-gray-50 transition">
+          <td class="px-4 py-3">{{ loop.index }}</td>
+          <td class="px-4 py-3">{{ k.nama_kriteria }}</td>
+          <td class="px-4 py-3 space-x-2">
+            <a href="/kriteria/edit/{{ k.id_kriteria }}"
+              class="text-blue-600 hover:text-blue-800 font-medium transition">Edit</a>
+            <a href="/kriteria/hapus/{{ k.id_kriteria }}"
+              class="text-red-600 hover:text-red-800 font-medium transition"
+              onclick="return confirm('Yakin hapus kriteria ini?')">Hapus</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

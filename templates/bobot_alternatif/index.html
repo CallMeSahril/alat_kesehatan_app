@@ -1,69 +1,77 @@
 {% extends 'layout.html' %}
+
 {% block content %}
-<div class="p-4">
-    <div class="mb-4">
-        <a href="/bobot-alternatif/generate-all" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            🔁 Generate Semua
-        </a>
-    </div>
+<div class="max-w-full px-4">
+  <!-- Tombol Generate Semua -->
+  <div class="mb-4">
+    <a href="/bobot-alternatif/generate-all"
+      class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition shadow-sm">
+      🔁 Generate Semua
+    </a>
+  </div>
 
-    <h2 class="text-xl font-bold mb-4">Nilai Alternatif terhadap Kriteria</h2>
+  <!-- Judul -->
+  <h2 class="text-2xl font-bold text-gray-800 mb-4">Nilai Alternatif terhadap Kriteria</h2>
 
-    <table class="table-auto border w-full">
-        <thead class="bg-gray-200">
-            <tr>
-                <th class="px-3 py-2 border" rowspan="2">No</th>
-                <th class="px-3 py-2 border" rowspan="2">Customer</th>
-                <th class="px-3 py-2 border" rowspan="2">Alat</th>
-                <th class="px-3 py-2 border" rowspan="2">Merk</th>
-                <th class="px-3 py-2 border" rowspan="2">Tahun</th>
-                <th class="px-3 py-2 border" rowspan="2">Instalasi</th>
-                <th class="px-3 py-2 border" rowspan="2">Maintenance</th>
-                <th class="px-3 py-2 border" rowspan="2">Kondisi</th>
-                <th class="px-3 py-2 border" rowspan="2">Status</th>
-                <th class="px-3 py-2 border" colspan="{{ kriteria|length }}">Nilai per Kriteria</th>
-                <th class="px-3 py-2 border" rowspan="2">Aksi</th>
-            </tr>
-            <tr>
-                {% for k in kriteria %}
-                <th class="px-2 py-1 border text-xs">{{ k.nama_kriteria }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
+  <!-- Tabel -->
+  <div class="overflow-auto bg-white shadow rounded">
+    <table class="min-w-full border text-sm">
+      <thead class="bg-gray-100 text-gray-700 font-semibold">
+        <tr>
+          <th class="border px-3 py-2" rowspan="2">No</th>
+          <th class="border px-3 py-2" rowspan="2">Customer</th>
+          <th class="border px-3 py-2" rowspan="2">Alat</th>
+          <th class="border px-3 py-2" rowspan="2">Merk</th>
+          <th class="border px-3 py-2" rowspan="2">Tahun</th>
+          <th class="border px-3 py-2" rowspan="2">Instalasi</th>
+          <th class="border px-3 py-2" rowspan="2">Maintenance</th>
+          <th class="border px-3 py-2" rowspan="2">Kondisi</th>
+          <th class="border px-3 py-2" rowspan="2">Status</th>
+          <th class="border px-3 py-2 text-center" colspan="{{ kriteria|length }}">Nilai per Kriteria</th>
+          <th class="border px-3 py-2" rowspan="2">Aksi</th>
+        </tr>
+        <tr>
+          {% for k in kriteria %}
+          <th class="border px-2 py-1 text-xs text-center">{{ k.nama_kriteria }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
 
-        <tbody>
-            {% for alat in data_alat %}
-            <tr>
-                <td class="border px-2 py-1 text-center">{{ loop.index }}</td>
-                <td class="border px-2 py-1">{{ alat.nama_customer }}</td>
-                <td class="border px-2 py-1">{{ alat.nama_alat }}</td>
-                <td class="border px-2 py-1">{{ alat.merk }}</td>
-                <td class="border px-2 py-1 text-center">{{ alat.tahun_produksi }}</td>
-                <td class="border px-2 py-1 text-center">{{ alat.tgl_instalasi }}</td>
-                <td class="border px-2 py-1 text-center">{{ alat.jumlah_maintenance }}</td>
-                <td class="border px-2 py-1">{{ alat.nama_kondisi }}</td>
-                <td class="border px-2 py-1 text-center">
-                    {% if alat.id_data in generated_ids %}
-                    <span class="text-green-600 font-semibold">✅ Ada</span>
-                    {% else %}
-                    <span class="text-red-600 font-semibold">❌ Kosong</span>
-                    {% endif %}
-                </td>
-                {% for k in kriteria %}
-                <td class="border px-2 py-1 text-center">
-                    {{ nilai_per_alat.get(alat.id_data, {}).get(k.id_kriteria, '-') }}
-                </td>
-                {% endfor %}
-                <td class="border px-2 py-1 text-center">
-                    <a href="/bobot-alternatif/generate/{{ alat.id_data }}" class="text-blue-600 hover:underline">
-                        {% if alat.id_data in generated_ids %}Regenerate{% else %}Generate{% endif %}
-                    </a>
-                </td>
+      <tbody class="text-gray-800 divide-y divide-gray-100">
+        {% for alat in data_alat %}
+        <tr class="hover:bg-gray-50 transition">
+          <td class="border px-2 py-1 text-center">{{ loop.index }}</td>
+          <td class="border px-2 py-1">{{ alat.nama_customer }}</td>
+          <td class="border px-2 py-1">{{ alat.nama_alat }}</td>
+          <td class="border px-2 py-1">{{ alat.merk }}</td>
+          <td class="border px-2 py-1 text-center">{{ alat.tahun_produksi }}</td>
+          <td class="border px-2 py-1 text-center">{{ alat.tgl_instalasi }}</td>
+          <td class="border px-2 py-1 text-center">{{ alat.jumlah_maintenance }}</td>
+          <td class="border px-2 py-1">{{ alat.nama_kondisi }}</td>
+          <td class="border px-2 py-1 text-center">
+            {% if alat.id_data in generated_ids %}
+            <span class="text-green-600 font-semibold">✅ Ada</span>
+            {% else %}
+            <span class="text-red-600 font-semibold">❌ Kosong</span>
+            {% endif %}
+          </td>
 
+          {% for k in kriteria %}
+          <td class="border px-2 py-1 text-center">
+            {{ nilai_per_alat.get(alat.id_data, {}).get(k.id_kriteria, '-') }}
+          </td>
+          {% endfor %}
 
-            </tr>
-            {% endfor %}
-        </tbody>
+          <td class="border px-2 py-1 text-center">
+            <a href="/bobot-alternatif/generate/{{ alat.id_data }}"
+              class="text-blue-600 hover:text-blue-800 hover:underline transition">
+              {% if alat.id_data in generated_ids %}Regenerate{% else %}Generate{% endif %}
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
+  </div>
 </div>
 {% endblock %}

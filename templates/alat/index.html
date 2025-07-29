@@ -1,31 +1,44 @@
 {% extends 'layout.html' %}
-{% block content %}
-<h1 class="text-2xl font-bold mb-4">Data Alat</h1>
-<a href="/alat/tambah" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4 inline-block">Tambah Alat</a>
 
-<table class="min-w-full bg-white border border-gray-300 shadow">
-    <thead>
-        <tr class="bg-gray-100 text-left">
-            <th class="p-3 border-b">ID</th>
-            <th class="p-3 border-b">Nama</th>
-            <th class="p-3 border-b">Merk</th>
-            <th class="p-3 border-b">Tahun Produksi</th>
-            <th class="p-3 border-b">Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for a in data_alat %}
-        <tr class="hover:bg-gray-50">
-            <td class="p-3 border-b">{{ a.id_alat }}</td>
-            <td class="p-3 border-b">{{ a.nama_alat }}</td>
-            <td class="p-3 border-b">{{ a.merk }}</td>
-            <td class="p-3 border-b">{{ a.tahun_produksi }}</td>
-            <td class="p-3 border-b space-x-2">
-                <a href="/alat/edit/{{ a.id_alat }}" class="text-blue-600 hover:underline">Edit</a>
-                <a href="/alat/hapus/{{ a.id_alat }}" class="text-red-600 hover:underline" onclick="return confirm('Yakin hapus?')">Hapus</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Data Alat</h1>
+        <a href="/alat/tambah"
+            class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 shadow-sm transition">
+            ➕ Tambah Alat
+        </a>
+    </div>
+
+    <div class="overflow-x-auto rounded shadow bg-white">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">ID</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Nama</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Merk</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Tahun Produksi</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-gray-800">
+                {% for a in data_alat %}
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-4 py-3">{{ a.id_alat }}</td>
+                    <td class="px-4 py-3">{{ a.nama_alat }}</td>
+                    <td class="px-4 py-3">{{ a.merk }}</td>
+                    <td class="px-4 py-3">{{ a.tahun_produksi }}</td>
+                    <td class="px-4 py-3 space-x-2">
+                        <a href="/alat/edit/{{ a.id_alat }}"
+                            class="text-blue-600 hover:text-blue-800 font-medium transition">Edit</a>
+                        <a href="/alat/hapus/{{ a.id_alat }}"
+                            class="text-red-600 hover:text-red-800 font-medium transition"
+                            onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
