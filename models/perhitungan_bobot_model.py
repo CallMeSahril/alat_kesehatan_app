@@ -35,8 +35,11 @@ class PerhitunganBobotModel:
         cursor.execute("DELETE FROM hasil_bobot_kriteria")
 
         for i in range(len(kriteria)):
-            cursor.execute("INSERT INTO hasil_bobot_kriteria (id_kriteria, bobot) VALUES (%s, %s)",
-                           (kriteria[i]['id_kriteria'], round(bobot_list[i], 4)))
+           cursor.execute(
+                "INSERT INTO hasil_bobot_kriteria (id_kriteria, bobot) VALUES (%s, %s)",
+                (kriteria[i]['id_kriteria'], float(round(bobot_list[i], 4)))
+            )
+
 
         conn.commit()
         conn.close()
