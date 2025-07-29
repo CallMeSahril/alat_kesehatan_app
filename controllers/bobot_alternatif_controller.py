@@ -70,7 +70,7 @@ def generate(id_data):
             umur = datetime.now().year - instalasi.year
             nilai.append(max(1, 10 - umur))
 
-        elif nama_kriteria == 'Jenis Customer':
+        elif nama_kriteria.strip().lower() == 'jenis customer':
             print(
                 f"[DEBUG] Kriteria: {nama_kriteria}, Customer Raw: '{customer}'")
 
@@ -132,7 +132,7 @@ def generate_all():
                 umur = datetime.now().year - instalasi.year
                 nilai.append(max(1, 10 - umur))
 
-            elif nama_kriteria == 'Jenis Customer':
+            elif nama_kriteria.strip().lower() == 'jenis customer':
                 print(
                     f"[DEBUG] Kriteria: {nama_kriteria}, Customer Raw: '{customer}'")
                 customer_lower = customer.lower()
