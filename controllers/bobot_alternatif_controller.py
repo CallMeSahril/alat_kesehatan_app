@@ -35,15 +35,17 @@ def index():
 @bobot_alternatif_bp.route('/generate/<int:id_data>')
 def generate(id_data):
     data = DataAlatModel.get_by_id(id_data)
+    if not data:
+        return f"Data ID {id_data} tidak ditemukan", 404
+    
     kriteria = KriteriaModel.get_all()
-    kondisi = data['nama_kondisi']
-    customer = data['nama_customer']
+    kondisi = data.get('nama_kondisi', '')
+    customer = data.get('nama_customer', '')
 
     map_kondisi = {
         'Ex Service': 5,
         'Good': 1
     }
-
     nilai = []
 
     for k in kriteria:
