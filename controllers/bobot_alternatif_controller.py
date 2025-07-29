@@ -35,19 +35,19 @@ def index():
 @bobot_alternatif_bp.route('/generate/<int:id_data>')
 def generate(id_data):
     data = DataAlatModel.get_by_id(id_data)
-    print(f"Generating bobot untuk ID {id_data} - Data: {data}")
-    if not data:
-        return f"Data ID {id_data} tidak ditemukan", 404
-
     kriteria = KriteriaModel.get_all()
-    kondisi = data.get('nama_kondisi', '')
-    customer = data.get('nama_customer', '')
+
+    if not data:
+        return f"Data dengan ID {id_data} tidak ditemukan", 404
 
     map_kondisi = {
         'Ex Service': 5,
         'Good': 1
     }
+
     nilai = []
+    kondisi = data['nama_kondisi']
+    customer = data['nama_customer']
 
     for k in kriteria:
         nama_kriteria = k['nama_kriteria']
@@ -77,14 +77,19 @@ def generate(id_data):
                 nilai.append(2)
             else:
                 nilai.append(1)
+        else:
+            # Default jika kriteria tidak dikenali
+            nilai.append(1)
 
-    # Simpan jika nilai sesuai jumlah kriteria
+    print(f"Nilai: {nilai} - Jumlah Kriteria: {len(kriteria)}")
+
     if len(nilai) == len(kriteria):
         BobotAlternatifModel.delete_by_data_alat(id_data)
         for i, k in enumerate(kriteria):
             BobotAlternatifModel.insert(id_data, k['id_kriteria'], nilai[i])
     else:
-        print(f"⚠️ SKIP ID {id_data} - Nilai tidak lengkap")
+        print(
+            f"⚠️ SKIP ID {id_data} - Nilai: {len(nilai)} | Kriteria: {len(kriteria)}")
 
     return redirect('/bobot-alternatif')
 
