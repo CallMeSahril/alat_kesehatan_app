@@ -47,21 +47,22 @@ class DataAlatModel:
     #     result = cursor.fetchone()
     #     conn.close()
     #     return result
-
     @staticmethod
     def get_by_id(id_data):
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("""
-            SELECT d.*, a.tahun_produksi, k.nama_kondisi
+            SELECT d.*, a.tahun_produksi, k.nama_kondisi, c.nama_customer
             FROM data_alat_kesehatan d
             JOIN alat a ON d.id_alat = a.id_alat
             JOIN kondisi_alat k ON d.id_kondisi = k.id_kondisi
+            JOIN customer c ON d.id_customer = c.id_customer
             WHERE d.id_data = %s
         """, (id_data,))
         result = cursor.fetchone()
         conn.close()
         return result
+
 
     @staticmethod
     def update(id_data, data):
