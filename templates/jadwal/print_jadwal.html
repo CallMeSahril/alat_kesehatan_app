@@ -43,6 +43,32 @@
         .signature-box {
             width: 250px;
         }
+
+        /* Cetak rapi */
+        @media print {
+            @page {
+                size: A4;
+                margin: 12mm;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            tr,
+            td,
+            th {
+                page-break-inside: avoid;
+            }
+        }
     </style>
 </head>
 
@@ -88,6 +114,7 @@
 
     <div class="signature-section">
         <div class="signature-box">
+            <!-- Jika mau satu baris: {{ current_day }}, {{ current_date }} -->
             <p>Hari: {{ current_day }}</p>
             <p>Jakarta, {{ current_date }}</p>
             <p>Penanggung Jawab</p>
@@ -96,8 +123,8 @@
         </div>
     </div>
 
-
     <script>
+        // Otomatis buka dialog print
         window.print();
     </script>
 
