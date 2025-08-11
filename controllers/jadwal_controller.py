@@ -79,7 +79,6 @@ def index():
         tahun_maintenance=sorted(tahun_dari_m_1_10)
     )
 
-
 @jadwal_bp.route('/print')
 def print_view():
     tahun = request.args.get('tahun', default=None, type=int)
@@ -114,7 +113,6 @@ def print_view():
 
             if tgl.year == tahun:
                 key = (alat['id_data'], tgl.year, tgl.month)
-
                 if key in jadwal_tercatat:
                     continue
                 jadwal_tercatat.add(key)
@@ -125,7 +123,11 @@ def print_view():
                 data_alat_baru['jadwal_date'] = tgl
                 data_per_bulan[tgl.month].append(data_alat_baru)
 
-    print(data_per_bulan)
+    # Tambah nama hari (Indonesia)
+    hari_id = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
+    now = datetime.now()
+    current_day = hari_id[now.weekday()]
+
     return render_template(
         'jadwal/print_jadwal.html',
         data_per_bulan=data_per_bulan,
@@ -134,5 +136,7 @@ def print_view():
         rekap_tahun=rekap_tahun,
         rekap_bulan=rekap_bulan,
         tahun_maintenance=sorted(tahun_dari_m_1_10),
-        current_date=datetime.now().strftime("%d %B %Y")
+        current_date=now.strftime("%d %B %Y"),
+        current_day=current_day
     )
+
