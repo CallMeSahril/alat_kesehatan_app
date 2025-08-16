@@ -79,6 +79,7 @@ def index():
         tahun_maintenance=sorted(tahun_dari_m_1_10)
     )
 
+
 @jadwal_bp.route('/print')
 def print_view():
     tahun = request.args.get('tahun', default=None, type=int)
@@ -123,7 +124,7 @@ def print_view():
                 data_alat_baru['jadwal_date'] = tgl
                 data_per_bulan[tgl.month].append(data_alat_baru)
 
-    # Tambah nama hari (Indonesia)
+    # Nama hari Indonesia untuk tanggal cetak saat ini
     hari_id = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
     now = datetime.now()
     current_day = hari_id[now.weekday()]
@@ -139,4 +140,3 @@ def print_view():
         current_date=now.strftime("%d %B %Y"),
         current_day=current_day
     )
-

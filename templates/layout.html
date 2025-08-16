@@ -12,11 +12,13 @@
 
 <body class="bg-gray-100 font-sans text-gray-800">
   <!-- Toggle Sidebar Button (Mobile) -->
-  <button class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow-md" onclick="toggleSidebar()">☰ Menu</button>
+  <button class="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow-md"
+    onclick="toggleSidebar()">☰ Menu</button>
 
   <div class="flex flex-col md:flex-row min-h-screen">
     <!-- Sidebar -->
-    <aside id="sidebar" class="hidden md:block w-full md:w-64 bg-white shadow-lg border-r border-gray-200 p-5 space-y-8">
+    <aside id="sidebar"
+      class="hidden md:block w-full md:w-64 bg-white shadow-lg border-r border-gray-200 p-5 space-y-8">
       <!-- Master Menu -->
       <div>
         <h2 class="text-lg font-semibold text-blue-600 mb-2">Master</h2>
@@ -35,9 +37,12 @@
         <ul class="space-y-1 text-sm">
           <li><a href="/kriteria" class="block px-3 py-2 rounded hover:bg-gray-100 transition">📌 Kriteria</a></li>
           <li><a href="/bobot" class="block px-3 py-2 rounded hover:bg-gray-100 transition">⚖️ Bobot</a></li>
-          <li><a href="/perhitungan-bobot" class="block px-3 py-2 rounded hover:bg-gray-100 transition">📐 Perhitungan Bobot</a></li>
-          <li><a href="/bobot-alternatif" class="block px-3 py-2 rounded hover:bg-gray-100 transition">🧮 Bobot Alternatif</a></li>
-          <li><a href="/perhitungan-alternatif" class="block px-3 py-2 rounded hover:bg-gray-100 transition">📈 Perhitungan Alternatif</a></li>
+          <li><a href="/perhitungan-bobot" class="block px-3 py-2 rounded hover:bg-gray-100 transition">📐 Perhitungan
+              Bobot</a></li>
+          <li><a href="/bobot-alternatif" class="block px-3 py-2 rounded hover:bg-gray-100 transition">🧮 Bobot
+              Alternatif</a></li>
+          <li><a href="/perhitungan-alternatif" class="block px-3 py-2 rounded hover:bg-gray-100 transition">📈
+              Perhitungan Alternatif</a></li>
         </ul>
       </div>
 
@@ -47,6 +52,14 @@
         <ul class="space-y-1 text-sm">
           <li><a href="/jadwal" class="block px-3 py-2 rounded hover:bg-gray-100 transition">📅 Jadwal Kegiatan</a></li>
         </ul>
+      </div>
+      <div class="border-t border-gray-200 pt-4">
+        <form action="/auth/logout" method="post">
+          <button type="submit"
+            class="w-full text-left block px-3 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition">
+            🚪 Logout
+          </button>
+        </form>
       </div>
     </aside>
 
